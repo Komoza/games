@@ -30,7 +30,10 @@ body {
 }
 
 .card {
-    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    //width: 250px;
     border: 1px solid #585656;
     position: relative;
     padding: 16px;
@@ -48,7 +51,6 @@ body {
         color: #fff;
         font-size: 32px;
         margin: 16px auto 32px;
-        z-index: 10;
     }
     &__description {
         display: flex;
@@ -82,7 +84,7 @@ body {
     &:hover {
         transform: scale(1.3);
         & .card__description {
-            height: 304px;
+            height: 296px;
             font-size: 16px;
             & button {
                 width: 100px;

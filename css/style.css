@@ -33,7 +33,9 @@ body {
 }
 
 .card {
-  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border: 1px solid #585656;
   position: relative;
   padding: 16px;
@@ -52,7 +54,6 @@ body {
   color: #fff;
   font-size: 32px;
   margin: 16px auto 32px;
-  z-index: 10;
 }
 .card__description {
   display: flex;
@@ -87,7 +88,7 @@ body {
   transform: scale(1.3);
 }
 .card:hover .card__description {
-  height: 304px;
+  height: 296px;
   font-size: 16px;
 }
 .card:hover .card__description button {
