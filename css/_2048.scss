@@ -12,17 +12,6 @@
         top: 2vmin;
         left: 2vmin;
     }
-
-    &__name {
-        font-size: 4vmin;
-        position: absolute;
-        left: 46vw;
-        top: 2vmin;
-        color: #fff;
-        font-size: 32px;
-        font-weight: 700;
-    }
-
     &__game-board {
         position: relative;
     }
@@ -61,14 +50,17 @@
         height: 17vmin;
         grid-column-start: var(--posX);
         grid-row-start: var(--posY);;
-        background: #dca87d;
         border-radius: 1vmin;
         position: absolute;
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 10vmin;
+        font-size: 8vmin;
+        animation: .3s show ease;
     }
 }
 
+@keyframes show {
+    0% {scale: 0;}
+  }
