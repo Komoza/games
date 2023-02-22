@@ -39,7 +39,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgb(42, 40, 40);
+  background-color: #2a2828;
   border: 1px solid #585656;
   position: relative;
   padding: 16px;
@@ -120,6 +120,10 @@ body {
 }
 .game2048__game-board {
   position: relative;
+  padding: 8px;
+  background-color: #2a2828;
+  border: 1px solid #585656;
+  border-radius: 1vmin;
 }
 .game2048__menu {
   display: flex;
@@ -157,7 +161,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 8vmin;
   animation: 0.3s show ease;
 }
 

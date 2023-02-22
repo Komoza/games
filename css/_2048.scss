@@ -14,6 +14,10 @@
     }
     &__game-board {
         position: relative;
+        padding: 8px;
+        background-color: #2a2828;
+        border: 1px solid #585656;
+        border-radius: 1vmin;
     }
 
     &__menu {
@@ -56,7 +60,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 8vmin;
         animation: .3s show ease;
     }
 }

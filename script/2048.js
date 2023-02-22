@@ -4,6 +4,18 @@ let cellStatus = [];
 
 createRandomUnit();
 
+// ===== test =====
+// createRandomUnit(2);
+// createRandomUnit(4);
+// createRandomUnit(8);
+// createRandomUnit(16);
+// createRandomUnit(32);
+// createRandomUnit(64);
+// createRandomUnit(128);
+// createRandomUnit(256);
+// createRandomUnit(512);
+// createRandomUnit(1024);
+// createRandomUnit(2048);
 
 restart.onclick = (event) => {
     cleanBorad();
@@ -11,10 +23,13 @@ restart.onclick = (event) => {
     createRandomUnit();
 }
 
-function createRandomUnit() {
+function createRandomUnit(val) {
     const unit = document.createElement('div');
     unit.className = 'game2048__unit';
     unit.innerHTML = Math.random() < 0.8 ? '2' : '4';
+
+    // ===== test =====
+    // unit.innerHTML = val;
 
     const posX = Math.floor(Math.random() * 4 + 1);
     const posY = Math.floor(Math.random() * 4 + 1);
@@ -22,12 +37,16 @@ function createRandomUnit() {
     if (!isBusy(posX, posY)){
         unit.style.setProperty('--posX', posX);
         unit.style.setProperty('--posY', posY);
-        unit.style.setProperty('background', getColor(unit));
+        
+        setPropertyUnit(unit);
     
         cells.appendChild(unit);
         cellStatus.push(`${posX}${posY}`);
     }else {
         createRandomUnit();
+
+        // ===== test =====
+        // createRandomUnit(val);
     }
 }
 
@@ -42,48 +61,73 @@ function isBusy(x, y) {
     return cellStatus.includes(`${x}${y}`);
 }
 
-function getColor(cell) {
+function setPropertyUnit(cell) {
     switch(cell.innerHTML) {
         case '2':
-            return 'red';
+            cell.style.setProperty('background', 'rgb(240, 228, 217)');
+            cell.style.setProperty('color', 'rgb(121, 112, 99)');
+            cell.style.setProperty('font-size', '8vmin');
+            return cell;
         case '4':
-            return 'orange';
+            cell.style.setProperty('background', 'rgb(238, 225, 199)');
+            cell.style.setProperty('color', 'rgb(121, 112, 99)');
+            cell.style.setProperty('font-size', '8vmin');
+            return cell;
         case '8':
-            return 'yellow';
+            cell.style.setProperty('background', 'rgb(253, 175, 112)');
+            cell.style.setProperty('font-size', '8vmin');
+            return cell;
         case '16':
-            return 'green';
+            cell.style.setProperty('background', 'rgb(255, 143, 86');
+            cell.style.setProperty('font-size', '7vmin');
+            return cell;
         case '32':
-            return 'blue';
+            cell.style.setProperty('background', 'rgb(255, 112, 80');
+            cell.style.setProperty('font-size', '7vmin');
+            return cell;
         case '64':
-            return 'darkblue';
+            cell.style.setProperty('background', 'rgb(255, 70, 18)');
+            cell.style.setProperty('font-size', '6vmin');
+            return cell;
         case '128':
-            return 'purple';
+            cell.style.setProperty('background', 'rgb(241, 210, 104)');
+            cell.style.setProperty('font-size', '6vmin');
+            return cell;
         case '256':
-            return 'red';
+            cell.style.setProperty('background', 'rgb(241, 208, 86)');
+            cell.style.setProperty('font-size', '6vmin');
+            return cell;
         case '512':
-            return '#edb05a';
+            cell.style.setProperty('background', 'rgb(240, 203, 65)');
+            cell.style.setProperty('font-size', '6vmin');
+            return cell;
         case '1024':
-            return '#edb05a';
+            cell.style.setProperty('background', 'rgb(242, 201, 39)');
+            cell.style.setProperty('font-size', '5vmin');
+            return cell;
         case '2048':
-            return '#edb05a';
+            cell.style.setProperty('background', 'rgb(243, 197, 0)');
+            cell.style.setProperty('font-size', '5vmin');
+            return cell;
 
         default:
-            return '#f0cfa1';
+            cell.style.setProperty('background', 'black');
+            cell.style.setProperty('font-size', '4vmin');
     }
 }
 
-document.addEventListener('keydown', function drawLetter(event) {
-    if (event.code == 'ArrowUp') {
-        console.log('up')
+document.addEventListener('keyup', function drawLetter(event) {
+    if (event.code == 'ArrowUp') {   
+        createRandomUnit();
     }
     if (event.code == 'ArrowDown') {
-        console.log('down')
+        createRandomUnit();
     }
     if (event.code == 'ArrowLeft') {
-        console.log('left')
+        createRandomUnit();
     }
     if (event.code == 'ArrowRight') {
-        console.log('right')
+        createRandomUnit();
     }
 })
 
