@@ -26,7 +26,7 @@ restart.onclick = (event) => {
 function createRandomUnit(val) {
     const unit = document.createElement('div');
     unit.className = 'game2048__unit';
-    unit.innerHTML = Math.random() < 0.8 ? '2' : '4';
+    unit.innerHTML = Math.random() < 0.7 ? '2' : '4';
 
     // ===== test =====
     // unit.innerHTML = val;

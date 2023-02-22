@@ -46,6 +46,13 @@
         cursor: pointer;
     }
 
+    &__help{
+        color: white;
+        position: absolute;
+        right: 0;
+        bottom: -55px;
+        font-size: 24px;
+    }
 
     &__unit {
         width: 17vmin;

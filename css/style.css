@@ -148,6 +148,13 @@ body {
   right: 0;
   cursor: pointer;
 }
+.game2048__help {
+  color: white;
+  position: absolute;
+  right: 0;
+  bottom: -55px;
+  font-size: 24px;
+}
 .game2048__unit {
   width: 17vmin;
   height: 17vmin;
