@@ -103,39 +103,56 @@ body {
   font-size: 20px;
 }
 
-.container-2048 {
+.game2048 {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
-.back-link {
+.game2048__back-link {
   color: white;
   position: absolute;
   top: 2vmin;
   left: 2vmin;
 }
-
-.game-name {
+.game2048__name {
   font-size: 4vmin;
-  margin-bottom: 10px;
+  position: absolute;
+  left: 46vw;
+  top: 2vmin;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
 }
-
-.game-board {
+.game2048__game-board {
+  position: relative;
+}
+.game2048__menu {
+  display: flex;
+  color: white;
+}
+.game2048__cells {
   display: grid;
   position: relative;
   grid-template-columns: repeat(4, 17vmin);
   grid-template-rows: repeat(4, 17vmin);
   gap: 10px;
 }
-
-.cell {
+.game2048__cell {
   background: #ccc;
   border-radius: 1vmin;
 }
-
-.unit {
+.game2048__score, .game2048__restart {
+  position: absolute;
+  top: -30px;
+}
+.game2048__restart {
+  right: 0;
+  cursor: pointer;
+}
+.game2048__unit {
   --posX: 1;
   --posY: 1;
   width: 17vmin;
