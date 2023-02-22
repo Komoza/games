@@ -39,6 +39,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: rgb(42, 40, 40);
   border: 1px solid #585656;
   position: relative;
   padding: 16px;
@@ -144,15 +145,15 @@ body {
   cursor: pointer;
 }
 .game2048__unit {
-  --posX: 1;
-  --posY: 1;
   width: 17vmin;
   height: 17vmin;
   grid-column-start: var(--posX);
   grid-row-start: var(--posY);
   border-radius: 1vmin;
   position: absolute;
+  z-index: 10;
   color: white;
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;

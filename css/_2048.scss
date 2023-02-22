@@ -44,15 +44,15 @@
 
 
     &__unit {
-        --posX: 1;
-        --posY: 1;
         width: 17vmin;
         height: 17vmin;
         grid-column-start: var(--posX);
-        grid-row-start: var(--posY);;
+        grid-row-start: var(--posY);
         border-radius: 1vmin;
         position: absolute;
+        z-index: 10;
         color: white;
+        font-weight: 600;
         display: flex;
         justify-content: center;
         align-items: center;
