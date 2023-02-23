@@ -36,7 +36,7 @@ function createRandomUnit(val) {
     const posX = Math.floor(Math.random() * 4);
     const posY = Math.floor(Math.random() * 4);
 
-    if (isEmpty(posX, posY)){                  // зацикливается на проигрыше
+    if (isEmpty(posX, posY)){                  
         arrayCells[posX][posY] = Math.random() < 0.7 ? 2 : 4;
         const unit = document.createElement('div');
         unit.className = 'game2048__unit';
@@ -130,8 +130,6 @@ function setPropertyUnit(cell) {
     }
 }
 
-// БАГ, если не получилось походить, он все равно создает новую ячейку
-// Нет окна победы
 document.addEventListener('keyup', function drawLetter(event) {
     switch (event.code) {
         case 'ArrowUp':
@@ -311,10 +309,6 @@ function moveCellsRight() {
     }
 }
 
-
-// 1. Переделать отрисовку экрана, невозможно добавить анимацию
-// 2. Зацикливается на проигрыше
-// 3. Если не получилось походить, он все равно создает новую ячейку
-// 4. Нет окна победы
-// 5. Добавить мобильную версию (со свайпами)
-// 6. Много багов из-за порядка проходу по массиву во время клика
+// 1. Если не получилось походить, он все равно создает новую ячейку
+// 2. Нет окна победы
+// 3. Добавить мобильную версию (со свайпами)
