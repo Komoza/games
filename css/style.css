@@ -72,10 +72,15 @@ body {
   position: absolute;
   bottom: 16px;
   background: white;
-  font-size: 0;
+  font-size: 16px;
   padding-top: 8px;
   color: #585656;
   transition: all 0.3s;
+}
+.card__description p {
+  display: none;
+  color: #585656;
+  transition: all 3s;
 }
 .card__button {
   width: 0;
@@ -96,7 +101,9 @@ body {
 }
 .card:hover .card__description {
   height: 296px;
-  font-size: 16px;
+}
+.card:hover p {
+  display: block;
 }
 .card:hover .card__button {
   width: 100px;
@@ -134,7 +141,7 @@ body {
   position: relative;
   grid-template-columns: repeat(4, 17vmin);
   grid-template-rows: repeat(4, 17vmin);
-  gap: 10px;
+  gap: 2vmin;
 }
 .game2048__cell {
   background: #ccc;
@@ -142,6 +149,8 @@ body {
 }
 .game2048__score, .game2048__restart {
   position: absolute;
+  display: flex;
+  gap: 10px;
   top: -30px;
 }
 .game2048__restart {
@@ -158,8 +167,8 @@ body {
 .game2048__unit {
   width: 17vmin;
   height: 17vmin;
-  grid-column-start: var(--posX);
-  grid-row-start: var(--posY);
+  left: calc(var(--posX) * 19vmin);
+  top: calc(var(--posY) * 19vmin);
   border-radius: 1vmin;
   position: absolute;
   z-index: 10;
@@ -168,4 +177,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s;
+  animation: 0.3s show ease;
+}
+
+@keyframes show {
+  0% {
+    scale: 0;
+  }
 }/*# sourceMappingURL=style.css.map */

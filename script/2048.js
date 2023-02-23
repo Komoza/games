@@ -1,5 +1,7 @@
 const cells = document.querySelector('.game2048__cells');
-const restart = document.querySelector('.game2048__restart')
+const restart = document.querySelector('.game2048__restart');
+let units = 0;
+let score = document.querySelector('.game2048__score--val')
 
 let arrayCells = new Array(4);
 for (let i = 0; i < 4; i++) {
@@ -15,26 +17,6 @@ restart.onclick = (event) => {
     reloadArrayCells();
     createRandomUnit();
     createRandomUnit();
-    drawBoard();
-}
-
-function drawBoard() {
-    cleanBoard();
-
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            if (arrayCells[i][j] !== 0) {
-                const unit = document.createElement('div');
-                unit.className = 'game2048__unit';
-                unit.style.setProperty('--posX', i + 1);
-                unit.style.setProperty('--posY', j + 1);
-                unit.innerHTML = arrayCells[i][j];
-
-                setPropertyUnit(unit);
-                cells.appendChild(unit);
-            }
-        }
-    }
 }
 
 function reloadArrayCells()  {
@@ -46,26 +28,39 @@ function reloadArrayCells()  {
 }
 
 function createRandomUnit(val) {
-    const posX = Math.floor(Math.random() * 4 + 1);
-    const posY = Math.floor(Math.random() * 4 + 1);
+    units = document.querySelectorAll('.game2048__unit');
+    if (units.length === 16) {
+        console.log('lose');
+        return;
+    }
+    const posX = Math.floor(Math.random() * 4);
+    const posY = Math.floor(Math.random() * 4);
 
-    if (isEmpty(posX, posY)){                   // зацикливается на проигрыше
-        arrayCells[posX - 1][posY - 1] = Math.random() < 0.7 ? 2 : 4;
+    if (isEmpty(posX, posY)){                  // зацикливается на проигрыше
+        arrayCells[posX][posY] = Math.random() < 0.7 ? 2 : 4;
+        const unit = document.createElement('div');
+        unit.className = 'game2048__unit';
+        unit.style.setProperty('--posX', posX);
+        unit.style.setProperty('--posY', posY);
+        unit.innerHTML = arrayCells[posX][posY];
+
+        setPropertyUnit(unit);
+        cells.appendChild(unit); 
     }else {
         createRandomUnit();
     }
-    drawBoard();
 }
 
 function cleanBoard() {
-    const units = document.querySelectorAll('.game2048__unit');
+    units = document.querySelectorAll('.game2048__unit');
+    score.innerHTML = '0';
     units.forEach((item) => {
         cells.removeChild(item);
     })
 }
 
 function isEmpty(x, y) {
-    if (arrayCells[x - 1][y - 1] !== 0) {
+    if (arrayCells[x][y] !== 0) {
         return false;
     }
     return true;
@@ -85,38 +80,47 @@ function setPropertyUnit(cell) {
             return cell;
         case '8':
             cell.style.setProperty('background', 'rgb(253, 175, 112)');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '8vmin');
             return cell;
         case '16':
             cell.style.setProperty('background', 'rgb(255, 143, 86');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '7vmin');
             return cell;
         case '32':
             cell.style.setProperty('background', 'rgb(255, 112, 80');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '7vmin');
             return cell;
         case '64':
             cell.style.setProperty('background', 'rgb(255, 70, 18)');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '6vmin');
             return cell;
         case '128':
             cell.style.setProperty('background', 'rgb(241, 210, 104)');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '6vmin');
             return cell;
         case '256':
             cell.style.setProperty('background', 'rgb(241, 208, 86)');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '6vmin');
             return cell;
         case '512':
             cell.style.setProperty('background', 'rgb(240, 203, 65)');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '6vmin');
             return cell;
         case '1024':
             cell.style.setProperty('background', 'rgb(242, 201, 39)');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '5vmin');
             return cell;
         case '2048':
             cell.style.setProperty('background', 'rgb(243, 197, 0)');
+            cell.style.setProperty('color', 'rgb(255, 246, 230)');
             cell.style.setProperty('font-size', '5vmin');
             return cell;
 
@@ -126,102 +130,191 @@ function setPropertyUnit(cell) {
     }
 }
 
-
+// БАГ, если не получилось походить, он все равно создает новую ячейку
+// Нет окна победы
 document.addEventListener('keyup', function drawLetter(event) {
-    if (event.code == 'ArrowUp') {
-        moveCellsUp(); 
-        drawBoard();
-        createRandomUnit();
-    }
-    if (event.code == 'ArrowDown') {
-        moveCellsDown(); 
-        drawBoard();
-        createRandomUnit();
-    }
-    if (event.code == 'ArrowLeft') {
-        moveCellsLeft(); 
-        drawBoard();
-        createRandomUnit();
-    }
-    if (event.code == 'ArrowRight') {
-        moveCellsRight(); 
-        drawBoard();
-        createRandomUnit();
+    switch (event.code) {
+        case 'ArrowUp':
+            moveCellsUp(); 
+            createRandomUnit();
+            return;
+        case 'ArrowDown':
+            moveCellsDown(); 
+            createRandomUnit();
+            return;
+        case 'ArrowLeft':
+            moveCellsLeft(); 
+            createRandomUnit();
+            return;
+        case 'ArrowRight':
+            moveCellsRight(); 
+            createRandomUnit();
+            return;
+        default:
+            return;
     }
 })
-
 function moveCellsUp() {
-    for (let i = 0; i < 4; i++){
-        for (let j = 1; j < 4; j++) {
+    for (let j = 1; j < 4; j++){
+        for (let i = 0; i < 4; i++){
             if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i + 1, j)) {
+                if (isEmpty(i, j - 1)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posY', j - 1);
+                        }
+                    })
                     arrayCells[i][j - 1] = arrayCells[i][j];
                     arrayCells[i][j] = 0;
                     moveCellsUp();
-                    break;
+                    break; 
                 }
                 if (arrayCells[i][j] === arrayCells[i][j - 1]) {
                     arrayCells[i][j - 1] += arrayCells[i][j];
                     arrayCells[i][j] = 0;
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j - 1 == getComputedStyle(item).getPropertyValue('--posY')){
+                            cells.removeChild(item);
+                        }
+                    })
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posY', j - 1);
+                            item.innerHTML = arrayCells[i][j - 1];
+                            score.innerHTML = Number(score.innerHTML) + Number(item.innerHTML);
+                            setPropertyUnit(item)
+                        }
+                    })
+                    
                 }
             }
         }
-    }
+    }   
 }
-
-function moveCellsLeft() {
-    for (let i = 1; i < 4; i++){
-        for (let j = 0; j < 4; j++) {
-            if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i, j + 1)) {
-                    arrayCells[i - 1][j] = arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                    moveCellsLeft();
-                    break;
-                }
-                if (arrayCells[i][j] === arrayCells[i - 1][j]) {
-                    arrayCells[i - 1][j] += arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                }
-            }
-        }
-    }
-}
-
 function moveCellsDown() {
-    for (let i = 0; i < 4; i++){
-        for (let j = 0; j < 3; j++) {
+    for (let j = 2; j >= 0; j--){
+        for (let i = 0; i < 4; i++){
             if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i + 1, j + 2)) {
+                if (isEmpty(i, j + 1)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posY', j + 1);
+                        }
+                    })
                     arrayCells[i][j + 1] = arrayCells[i][j];
                     arrayCells[i][j] = 0;
                     moveCellsDown();
-                    break;
+                    break; 
                 }
                 if (arrayCells[i][j] === arrayCells[i][j + 1]) {
                     arrayCells[i][j + 1] += arrayCells[i][j];
                     arrayCells[i][j] = 0;
+                    units  = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j + 1 == getComputedStyle(item).getPropertyValue('--posY')){
+                            cells.removeChild(item);
+                        }
+                    })
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posY', j + 1);
+                            item.innerHTML = arrayCells[i][j + 1];
+                            score.innerHTML = Number(score.innerHTML) + Number(item.innerHTML);
+                            setPropertyUnit(item)
+                        }
+                    })
+                    
+                }
+            }
+        }
+    } 
+}
+function moveCellsLeft() {
+    for (let i = 1; i < 4; i++){
+        for (let j = 0; j < 4; j++){
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i - 1, j)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posX', i - 1);
+                        }
+                    })
+                    arrayCells[i - 1][j] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    moveCellsLeft();
+                    break; 
+                }
+                if (arrayCells[i][j] === arrayCells[i - 1][j]) {
+                    arrayCells[i - 1][j] += arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i - 1 == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            cells.removeChild(item);
+                        }
+                    })
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posX', i - 1);
+                            item.innerHTML = arrayCells[i - 1][j];
+                            score.innerHTML = Number(score.innerHTML) + Number(item.innerHTML);
+                            setPropertyUnit(item)
+                        }
+                    })
+                    
+                }
+            }
+        }
+    }
+}
+function moveCellsRight() {
+    for (let i = 2; i >= 0; i--){
+        for (let j = 0; j < 4; j++){
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i + 1, j)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posX', i + 1);
+                        }
+                    })
+                    arrayCells[i + 1][j] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    moveCellsRight();
+                    break; 
+                }
+                if (arrayCells[i][j] === arrayCells[i + 1][j]) {
+                    arrayCells[i + 1][j] += arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i + 1 == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            cells.removeChild(item);
+                        }
+                    })
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posX', i + 1);
+                            item.innerHTML = arrayCells[i + 1][j];
+                            score.innerHTML = Number(score.innerHTML) + Number(item.innerHTML);
+                            setPropertyUnit(item)
+                        }
+                    })
+                    
                 }
             }
         }
     }
 }
 
-function moveCellsRight() {
-    for (let i = 0; i < 3; i++){
-        for (let j = 0; j < 4; j++) {
-            if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i + 2, j + 1)) {
-                    arrayCells[i + 1][j] = arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                    moveCellsRight();
-                    break;
-                }
-                if (arrayCells[i][j] === arrayCells[i + 1][j]) {
-                    arrayCells[i + 1][j] += arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                }
-            }
-        }
-    }
-}
+
+// 1. Переделать отрисовку экрана, невозможно добавить анимацию
+// 2. Зацикливается на проигрыше
+// 3. Если не получилось походить, он все равно создает новую ячейку
+// 4. Нет окна победы
+// 5. Добавить мобильную версию (со свайпами)
+// 6. Много багов из-за порядка проходу по массиву во время клика
