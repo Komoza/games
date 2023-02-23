@@ -168,11 +168,4 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: 0.3s show ease;
-}
-
-@keyframes show {
-  0% {
-    scale: 0;
-  }
 }/*# sourceMappingURL=style.css.map */

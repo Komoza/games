@@ -1,64 +1,74 @@
 const cells = document.querySelector('.game2048__cells');
 const restart = document.querySelector('.game2048__restart')
-let cellStatus = [];
 
-createRandomUnit();
-
-// ===== test =====
-// createRandomUnit(2);
-// createRandomUnit(4);
-// createRandomUnit(8);
-// createRandomUnit(16);
-// createRandomUnit(32);
-// createRandomUnit(64);
-// createRandomUnit(128);
-// createRandomUnit(256);
-// createRandomUnit(512);
-// createRandomUnit(1024);
-// createRandomUnit(2048);
-
-restart.onclick = (event) => {
-    cleanBorad();
-    cellStatus = [];
-    createRandomUnit();
+let arrayCells = new Array(4);
+for (let i = 0; i < 4; i++) {
+    arrayCells[i] = new Array(4);
 }
 
-function createRandomUnit(val) {
-    const unit = document.createElement('div');
-    unit.className = 'game2048__unit';
-    unit.innerHTML = Math.random() < 0.7 ? '2' : '4';
+reloadArrayCells();
+createRandomUnit();
+createRandomUnit();
 
-    // ===== test =====
-    // unit.innerHTML = val;
+restart.onclick = (event) => {
+    cleanBoard();
+    reloadArrayCells();
+    createRandomUnit();
+    createRandomUnit();
+    drawBoard();
+}
 
-    const posX = Math.floor(Math.random() * 4 + 1);
-    const posY = Math.floor(Math.random() * 4 + 1);
+function drawBoard() {
+    cleanBoard();
 
-    if (!isBusy(posX, posY)){
-        unit.style.setProperty('--posX', posX);
-        unit.style.setProperty('--posY', posY);
-        
-        setPropertyUnit(unit);
-    
-        cells.appendChild(unit);
-        cellStatus.push(`${posX}${posY}`);
-    }else {
-        createRandomUnit();
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (arrayCells[i][j] !== 0) {
+                const unit = document.createElement('div');
+                unit.className = 'game2048__unit';
+                unit.style.setProperty('--posX', i + 1);
+                unit.style.setProperty('--posY', j + 1);
+                unit.innerHTML = arrayCells[i][j];
 
-        // ===== test =====
-        // createRandomUnit(val);
+                setPropertyUnit(unit);
+                cells.appendChild(unit);
+            }
+        }
     }
 }
 
-function cleanBorad() {
+function reloadArrayCells()  {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++){
+            arrayCells[i][j] = 0;
+        }
+    }
+}
+
+function createRandomUnit(val) {
+    const posX = Math.floor(Math.random() * 4 + 1);
+    const posY = Math.floor(Math.random() * 4 + 1);
+
+    if (isEmpty(posX, posY)){                   // зацикливается на проигрыше
+        arrayCells[posX - 1][posY - 1] = Math.random() < 0.7 ? 2 : 4;
+    }else {
+        createRandomUnit();
+    }
+    drawBoard();
+}
+
+function cleanBoard() {
     const units = document.querySelectorAll('.game2048__unit');
     units.forEach((item) => {
         cells.removeChild(item);
     })
 }
 
-function isBusy(x, y) {
-    return cellStatus.includes(`${x}${y}`);
+function isEmpty(x, y) {
+    if (arrayCells[x - 1][y - 1] !== 0) {
+        return false;
+    }
+    return true;
 }
 
 function setPropertyUnit(cell) {
@@ -116,18 +126,102 @@ function setPropertyUnit(cell) {
     }
 }
 
+
 document.addEventListener('keyup', function drawLetter(event) {
-    if (event.code == 'ArrowUp') {   
+    if (event.code == 'ArrowUp') {
+        moveCellsUp(); 
+        drawBoard();
         createRandomUnit();
     }
     if (event.code == 'ArrowDown') {
+        moveCellsDown(); 
+        drawBoard();
         createRandomUnit();
     }
     if (event.code == 'ArrowLeft') {
+        moveCellsLeft(); 
+        drawBoard();
         createRandomUnit();
     }
     if (event.code == 'ArrowRight') {
+        moveCellsRight(); 
+        drawBoard();
         createRandomUnit();
     }
 })
 
+function moveCellsUp() {
+    for (let i = 0; i < 4; i++){
+        for (let j = 1; j < 4; j++) {
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i + 1, j)) {
+                    arrayCells[i][j - 1] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    moveCellsUp();
+                    break;
+                }
+                if (arrayCells[i][j] === arrayCells[i][j - 1]) {
+                    arrayCells[i][j - 1] += arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+
+function moveCellsLeft() {
+    for (let i = 1; i < 4; i++){
+        for (let j = 0; j < 4; j++) {
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i, j + 1)) {
+                    arrayCells[i - 1][j] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    moveCellsLeft();
+                    break;
+                }
+                if (arrayCells[i][j] === arrayCells[i - 1][j]) {
+                    arrayCells[i - 1][j] += arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+
+function moveCellsDown() {
+    for (let i = 0; i < 4; i++){
+        for (let j = 0; j < 3; j++) {
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i + 1, j + 2)) {
+                    arrayCells[i][j + 1] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    moveCellsDown();
+                    break;
+                }
+                if (arrayCells[i][j] === arrayCells[i][j + 1]) {
+                    arrayCells[i][j + 1] += arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+
+function moveCellsRight() {
+    for (let i = 0; i < 3; i++){
+        for (let j = 0; j < 4; j++) {
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i + 2, j + 1)) {
+                    arrayCells[i + 1][j] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    moveCellsRight();
+                    break;
+                }
+                if (arrayCells[i][j] === arrayCells[i + 1][j]) {
+                    arrayCells[i + 1][j] += arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                }
+            }
+        }
+    }
+}
