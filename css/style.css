@@ -180,6 +180,78 @@ body {
   transition: all 0.3s;
   animation: 0.3s show ease;
 }
+.game2048__lose-form, .game2048__win-form {
+  z-index: 20;
+  display: flex;
+  width: 60vmin;
+  height: 60vmin;
+  position: absolute;
+  background-color: rgb(42, 40, 40);
+  border: 1px solid #585656;
+  border-radius: 1vmin;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4vmin 2vmin 7vmin;
+  animation: show 0.5s;
+  display: none;
+}
+.game2048__lose-message {
+  color: #fb4a4a;
+  font-size: 6vmin;
+}
+.game2048__win-message {
+  color: rgb(24, 255, 31);
+  font-size: 6vmin;
+}
+.game2048__result {
+  display: flex;
+  color: #fff;
+  font-size: 4vmin;
+  gap: 1vmin;
+}
+.game2048__lose-buttons, .game2048__win-buttons {
+  display: flex;
+  gap: 5vmin;
+}
+.game2048__main-menu, .game2048__try-again--win {
+  font-size: 2.5vmin;
+  width: 20vmin;
+  height: 7vmin;
+  border-radius: 1vmin;
+  border: none;
+  transition: all 0.3s;
+}
+.game2048__main-menu:hover, .game2048__try-again--win:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.game2048__try-again, .game2048__continue {
+  font-size: 2.5vmin;
+  width: 20vmin;
+  height: 7vmin;
+  border-radius: 1vmin;
+  color: #fff;
+  background-color: rgb(3, 166, 8);
+  border: none;
+  transition: all 0.3s;
+}
+.game2048__try-again:hover, .game2048__continue:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.game2048__win-cell {
+  width: 17vmin;
+  height: 17vmin;
+  border-radius: 1vmin;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(243, 197, 0);
+  color: rgb(255, 246, 230);
+  font-size: 5vmin;
+}
 
 @keyframes show {
   0% {
