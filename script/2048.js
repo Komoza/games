@@ -29,10 +29,6 @@ function reloadArrayCells()  {
 
 function createRandomUnit(val) {
     units = document.querySelectorAll('.game2048__unit');
-    if (units.length === 16) {
-        console.log('lose');
-        return;
-    }
     const posX = Math.floor(Math.random() * 4);
     const posY = Math.floor(Math.random() * 4);
 
@@ -130,45 +126,53 @@ function setPropertyUnit(cell) {
     }
 }
 
-document.addEventListener('keyup', function drawLetter(event) {
+
+
+document.addEventListener('keydown', function drawLetter(event) {
     switch (event.code) {
         case 'ArrowUp':
-            moveCellsUp(); 
-            createRandomUnit();
+            if (moveCellsUp()) {
+                createRandomUnit();
+            }
             return;
         case 'ArrowDown':
-            moveCellsDown(); 
-            createRandomUnit();
+            if (moveCellsDown()) {
+                createRandomUnit();
+            }
             return;
         case 'ArrowLeft':
-            moveCellsLeft(); 
-            createRandomUnit();
+            if (moveCellsLeft()) {
+                createRandomUnit();
+            }
             return;
         case 'ArrowRight':
-            moveCellsRight(); 
-            createRandomUnit();
+            if (moveCellsRight()) {
+                createRandomUnit();
+            }
             return;
         default:
             return;
     }
 })
+
+
 function moveCellsUp() {
+    let isWasMove = false;
+    let wasShift = true;
+    let count = 0;
+    while (wasShift) {
+        wasShift = shiftUp();
+        if (count > 0) {
+            isWasMove = true;
+        }
+        count += 1;
+    }
+
     for (let j = 1; j < 4; j++){
         for (let i = 0; i < 4; i++){
             if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i, j - 1)){
-                    units = document.querySelectorAll('.game2048__unit');
-                    units.forEach((item) => {
-                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
-                            item.style.setProperty('--posY', j - 1);
-                        }
-                    })
-                    arrayCells[i][j - 1] = arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                    moveCellsUp();
-                    break; 
-                }
                 if (arrayCells[i][j] === arrayCells[i][j - 1]) {
+                    isWasMove = true;
                     arrayCells[i][j - 1] += arrayCells[i][j];
                     arrayCells[i][j] = 0;
                     units = document.querySelectorAll('.game2048__unit');
@@ -182,32 +186,37 @@ function moveCellsUp() {
                             item.style.setProperty('--posY', j - 1);
                             item.innerHTML = arrayCells[i][j - 1];
                             score.innerHTML = Number(score.innerHTML) + Number(item.innerHTML);
-                            setPropertyUnit(item)
+                            setPropertyUnit(item);
                         }
                     })
-                    
+                    wasShift = true;
+                    while (wasShift) {
+                        wasShift = shiftUp();
+                    }
                 }
-            }
+            }  
         }
-    }   
+    }
+    return isWasMove; 
 }
+
 function moveCellsDown() {
+    let isWasMove = false;
+    let wasShift = true;
+    let count = 0;
+    while (wasShift) {
+        wasShift = shiftDown();
+        if (count > 0) {
+            isWasMove = true;
+        }
+        count += 1;
+    }
+
     for (let j = 2; j >= 0; j--){
         for (let i = 0; i < 4; i++){
             if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i, j + 1)){
-                    units = document.querySelectorAll('.game2048__unit');
-                    units.forEach((item) => {
-                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
-                            item.style.setProperty('--posY', j + 1);
-                        }
-                    })
-                    arrayCells[i][j + 1] = arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                    moveCellsDown();
-                    break; 
-                }
                 if (arrayCells[i][j] === arrayCells[i][j + 1]) {
+                    isWasMove = true;
                     arrayCells[i][j + 1] += arrayCells[i][j];
                     arrayCells[i][j] = 0;
                     units  = document.querySelectorAll('.game2048__unit');
@@ -224,29 +233,35 @@ function moveCellsDown() {
                             setPropertyUnit(item)
                         }
                     })
-                    
+                    wasShift = true;
+                    while (wasShift) {
+                        wasShift = shiftDown();
+                    }
                 }
             }
         }
-    } 
+    }
+    return isWasMove;
 }
+
 function moveCellsLeft() {
+    let isWasMove = false;
+    let wasShift = true;
+    let count = 0;
+
+    while (wasShift) {
+        wasShift = shiftLeft();
+        if (count > 0) {
+            isWasMove = true;
+        }
+        count += 1;
+    }
+
     for (let i = 1; i < 4; i++){
         for (let j = 0; j < 4; j++){
             if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i - 1, j)){
-                    units = document.querySelectorAll('.game2048__unit');
-                    units.forEach((item) => {
-                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
-                            item.style.setProperty('--posX', i - 1);
-                        }
-                    })
-                    arrayCells[i - 1][j] = arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                    moveCellsLeft();
-                    break; 
-                }
                 if (arrayCells[i][j] === arrayCells[i - 1][j]) {
+                    isWasMove = true;
                     arrayCells[i - 1][j] += arrayCells[i][j];
                     arrayCells[i][j] = 0;
                     units = document.querySelectorAll('.game2048__unit');
@@ -263,29 +278,35 @@ function moveCellsLeft() {
                             setPropertyUnit(item)
                         }
                     })
-                    
+                    wasShift = true;
+                    while (wasShift) {
+                        wasShift = shiftLeft();
+                    }
                 }
             }
         }
     }
+    return isWasMove;
 }
+
 function moveCellsRight() {
+    let isWasMove = false;
+    let wasShift = true;
+    let count = 0;
+
+    while (wasShift) {
+        wasShift = shiftRight();
+        if (count > 0) {
+            isWasMove = true;
+        }
+        count += 1;
+    }
+
     for (let i = 2; i >= 0; i--){
         for (let j = 0; j < 4; j++){
             if (arrayCells[i][j] !== 0) {
-                if (isEmpty(i + 1, j)){
-                    units = document.querySelectorAll('.game2048__unit');
-                    units.forEach((item) => {
-                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
-                            item.style.setProperty('--posX', i + 1);
-                        }
-                    })
-                    arrayCells[i + 1][j] = arrayCells[i][j];
-                    arrayCells[i][j] = 0;
-                    moveCellsRight();
-                    break; 
-                }
                 if (arrayCells[i][j] === arrayCells[i + 1][j]) {
+                    isWasMove = true;
                     arrayCells[i + 1][j] += arrayCells[i][j];
                     arrayCells[i][j] = 0;
                     units = document.querySelectorAll('.game2048__unit');
@@ -302,13 +323,99 @@ function moveCellsRight() {
                             setPropertyUnit(item)
                         }
                     })
-                    
+                    wasShift = true;
+                    while (wasShift) {
+                        wasShift = shiftRight();
+                    }
                 }
             }
         }
     }
+    return isWasMove;
 }
 
-// 1. Если не получилось походить, он все равно создает новую ячейку
-// 2. Нет окна победы
-// 3. Добавить мобильную версию (со свайпами)
+
+//  ==== shifts
+function shiftUp() {
+    for (let j = 1; j < 4; j++){
+        for (let i = 0; i < 4; i++){
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i, j - 1)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posY', j - 1);
+                        }
+                    })
+                    arrayCells[i][j - 1] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+function shiftDown() {
+    for (let j = 2; j >= 0; j--){
+        for (let i = 0; i < 4; i++){
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i, j + 1)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posY', j + 1);
+                        }
+                    })
+                    arrayCells[i][j + 1] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+function shiftLeft() {
+    for (let i = 1; i < 4; i++){
+        for (let j = 0; j < 4; j++){
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i - 1, j)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posX', i - 1);
+                        }
+                    })
+                    arrayCells[i - 1][j] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+function shiftRight() {
+    for (let i = 2; i >= 0; i--){
+        for (let j = 0; j < 4; j++){
+            if (arrayCells[i][j] !== 0) {
+                if (isEmpty(i + 1, j)){
+                    units = document.querySelectorAll('.game2048__unit');
+                    units.forEach((item) => {
+                        if (i == getComputedStyle(item).getPropertyValue('--posX') && j == getComputedStyle(item).getPropertyValue('--posY')){
+                            item.style.setProperty('--posX', i + 1);
+                        }
+                    })
+                    arrayCells[i + 1][j] = arrayCells[i][j];
+                    arrayCells[i][j] = 0;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+// 1. Нет окна победы
+// 2. Добавить мобильную версию (со свайпами)
