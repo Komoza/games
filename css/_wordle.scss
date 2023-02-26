@@ -1,0 +1,46 @@
+.wordle {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__game-board {
+        padding: 8px;
+        background-color: #2a2828;
+        border: 1px solid #585656;
+        border-radius: 1vmin;
+        position: relative;
+    } & input {
+        font-size: 5vmin;
+        text-align: center;
+        margin: 2px;
+        background: rgb(68, 63, 63);
+        color: white;
+        border: none;
+        text-transform: uppercase;
+        outline:rgb(158, 153, 153);
+        caret-color: transparent;
+    }
+    &__cells {
+        display: grid;
+        grid-template-columns: repeat(5, 10vmin);
+        grid-template-rows: repeat(6, 10vmin);
+        gap: 1px;
+    }
+    &__menu {
+        display: flex;
+        color: white;
+    }
+    &__level, &__restart{
+        position: absolute;
+        display: flex;
+        gap: 10px;
+        top: -30px;
+    }
+    &__restart {
+        right: 0;
+        cursor: pointer;
+    }
+}
