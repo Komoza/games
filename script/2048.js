@@ -46,9 +46,8 @@ createRandomUnit();
 restart.onclick = (event) => {
   cleanBoard();
   reloadArrayCells();
-  document
-    .querySelector(".game2048__lose-form")
-    .style.setProperty("display", "none");
+  document.querySelector(".game2048__lose-form").style.setProperty("display", "none");
+  document.querySelector(".game2048__win-form").style.setProperty("display", "none");
   createRandomUnit();
   createRandomUnit();
 };
@@ -161,7 +160,7 @@ function setPropertyUnit(cell) {
   }
 }
 
-document.addEventListener("keydown", function drawLetter(event) {
+document.addEventListener("keydown", event =>{
   switch (event.code) {
     case "ArrowUp":
       if (moveCellsUp()) {

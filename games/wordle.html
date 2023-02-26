@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/letter_status.css">
     <title>Wordle</title>
 </head>
 <body>
     <div class="wordle">
         <nav><a class="back-link" href="../index.html">&lt; back</a></nav>
+        
         <div class="wordle__game-board">
             <div class="wordle__menu">
                 <div class="wordle__level">
@@ -20,45 +22,85 @@
             </div>
 
             <div class="wordle__cells">
-                <input inputmode="none" class="try_1 new_game" id="first_letter" type="text" maxlength="1" autofocus>
-                <input inputmode="none" class="try_1" type="text" maxlength="1">
-                <input inputmode="none" class="try_1" type="text" maxlength="1">
-                <input inputmode="none" class="try_1" type="text" maxlength="1">
-                <input inputmode="none" class="try_1" id="last_letter" type="text" maxlength="1">
-                
-                <input inputmode="none" class="try_2" id="first_letter" type="text" maxlength="1">
-                <input inputmode="none" class="try_2" type="text" maxlength="1">
-                <input inputmode="none" class="try_2" type="text" maxlength="1">
-                <input inputmode="none" class="try_2" type="text" maxlength="1">
-                <input inputmode="none" class="try_2" id="last_letter" type="text" maxlength="1">
-    
-                <input inputmode="none" class="try_3" id="first_letter" type="text" maxlength="1">
-                <input inputmode="none" class="try_3" type="text" maxlength="1">
-                <input inputmode="none" class="try_3" type="text" maxlength="1">
-                <input inputmode="none" class="try_3" type="text" maxlength="1">
-                <input inputmode="none" class="try_3" id="last_letter" type="text" maxlength="1">
-    
-                <input inputmode="none" class="try_4" id="first_letter" type="text" maxlength="1">
-                <input inputmode="none" class="try_4" type="text" maxlength="1">
-                <input inputmode="none" class="try_4" type="text" maxlength="1">
-                <input inputmode="none" class="try_4" type="text" maxlength="1">
-                <input inputmode="none" class="try_4" id="last_letter" type="text" maxlength="1">
-    
-                <input inputmode="none" class="try_5" id="first_letter" type="text" maxlength="1">
-                <input inputmode="none" class="try_5" type="text" maxlength="1">
-                <input inputmode="none" class="try_5" type="text" maxlength="1">
-                <input inputmode="none" class="try_5" type="text" maxlength="1">
-                <input inputmode="none" class="try_5" id="last_letter" type="text" maxlength="1">
-    
-                <input inputmode="none" class="try_6" id="first_letter" type="text" maxlength="1">
-                <input inputmode="none" class="try_6" type="text" maxlength="1">
-                <input inputmode="none" class="try_6" type="text" maxlength="1">
-                <input inputmode="none" class="try_6" type="text" maxlength="1">
-                <input inputmode="none" class="try_6" id="last_letter" type="text" maxlength="1">
+                <div class="wordle__cell wordle__cell--active"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
+                <div class="wordle__cell"></div>
             </div>
+            
+            <div class="wordle__keyboard">
+                <div class="wordle__first-line">
+                    <button class="wordle__key">й</button>
+                    <button class="wordle__key">ц</button>
+                    <button class="wordle__key">у</button>
+                    <button class="wordle__key">к</button>
+                    <button class="wordle__key">е</button>
+                    <button class="wordle__key">н</button>
+                    <button class="wordle__key">г</button>
+                    <button class="wordle__key">ш</button>
+                    <button class="wordle__key">щ</button>
+                    <button class="wordle__key">з</button>
+                    <button class="wordle__key">х</button>
+                    <button class="wordle__key">ъ</button>    
+                </div>
 
+                <div class="wordle__second-line">
+                    <button class="wordle__key">ф</button>
+                    <button class="wordle__key">ы</button>
+                    <button class="wordle__key">в</button>
+                    <button class="wordle__key">а</button>
+                    <button class="wordle__key">п</button>
+                    <button class="wordle__key">р</button>
+                    <button class="wordle__key">о</button>
+                    <button class="wordle__key">л</button>
+                    <button class="wordle__key">д</button>
+                    <button class="wordle__key">ж</button>
+                    <button class="wordle__key">э</button>    
+                </div>
+
+                <div class="wordle__third-line">
+                    <button class="wordle__key">я</button>
+                    <button class="wordle__key">ч</button>
+                    <button class="wordle__key">с</button>
+                    <button class="wordle__key">м</button>
+                    <button class="wordle__key">и</button>
+                    <button class="wordle__key">т</button>
+                    <button class="wordle__key">ь</button>
+                    <button class="wordle__key">б</button>
+                    <button class="wordle__key">ю</button>
+                    <button class="wordle__key wordle__clear">&larr;</button>
+                </div>
+                <button class="wordle__key wordle__check-word">Проверить слово</button>
+            </div>
         </div>
     </div>
-    
-</body>
+        <script src="../script/wordle/wordle.js" type="module"></script>
+        <script src="../script/wordle/words.js" type="module"></script>
+    </body>
 </html>
