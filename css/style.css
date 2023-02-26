@@ -281,7 +281,7 @@ body {
   grid-template-columns: repeat(5, 70px);
   grid-template-rows: repeat(6, 80px);
   gap: 3px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 .wordle__cell {
   font-size: 48px;
@@ -348,4 +348,78 @@ body {
 }
 .wordle__clear {
   width: 65px !important;
+}
+.wordle__lose-form, .wordle__win-form {
+  z-index: 20;
+  display: flex;
+  width: 60vmin;
+  height: 60vmin;
+  position: absolute;
+  background-color: rgb(42, 40, 40);
+  border: 1px solid #585656;
+  border-radius: 1vmin;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4vmin 2vmin 7vmin;
+  animation: show 0.5s;
+  display: none;
+}
+.wordle__lose-message {
+  color: #fb4a4a;
+  font-size: 6vmin;
+}
+.wordle__win-message {
+  color: rgb(24, 255, 31);
+  font-size: 6vmin;
+}
+.wordle__result {
+  display: flex;
+  color: #fff;
+  font-size: 4vmin;
+  gap: 1vmin;
+}
+.wordle__lose-buttons, .wordle__win-buttons {
+  display: flex;
+  gap: 5vmin;
+}
+.wordle__main-menu, .wordle__main-menu-win {
+  font-size: 2.5vmin;
+  width: 20vmin;
+  height: 7vmin;
+  border-radius: 1vmin;
+  border: none;
+  transition: all 0.3s;
+}
+.wordle__main-menu:hover, .wordle__main-menu-win:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.wordle__try-again, .wordle__continue {
+  font-size: 2.5vmin;
+  width: 20vmin;
+  height: 7vmin;
+  border-radius: 1vmin;
+  color: #fff;
+  background-color: rgb(3, 166, 8);
+  border: none;
+  transition: all 0.3s;
+}
+.wordle__try-again:hover, .wordle__continue:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.wordle__origin-word {
+  display: flex;
+  gap: 8px;
+}
+.wordle__letter {
+  width: 70px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: white;
+  border-radius: 5px;
 }/*# sourceMappingURL=style.css.map */

@@ -3,11 +3,43 @@ let original_word = '';
 let current_word = '';
 let current_level = 1;
 let textLvl = document.querySelector('.wordle__level--val')
-const restart = document.querySelector(".wordle__restart");
 
-restart.onclick = (event) => {
+
+document.querySelector(".wordle__main-menu").onclick = (event) => {
+  document.location.href = "../index.html";
+};
+
+document.querySelector(".wordle__main-menu-win").onclick = (event) => {
+    document.location.href = "../index.html";
+  };
+
+document.querySelector(".wordle__try-again").onclick = (event) => {
+    document.querySelector(".wordle__lose-form").style.setProperty("display", "none");
     cleanBoard();
     generateNewWord();
+    current_word = '';
+    current_level = 1;
+    textLvl.innerText = current_level; 
+};
+
+
+document.querySelector(".wordle__continue").onclick = (event) => {
+  document
+    .querySelector(".wordle__win-form")
+    .style.setProperty("display", "none");
+    cleanBoard();
+    current_level += 1;
+    current_word = '';
+    textLvl.innerText = current_level; 
+    generateNewWord();
+};
+
+
+document.querySelector(".wordle__restart").onclick = (event) => {
+    cleanBoard();
+    generateNewWord();
+    document.querySelector(".wordle__lose-form").style.setProperty("display", "none");
+    document.querySelector(".wordle__win-form").style.setProperty("display", "none");
     current_word = '';
     current_level = 1;
     textLvl.innerText = current_level; 
@@ -15,6 +47,7 @@ restart.onclick = (event) => {
 
 function generateNewWord() {
     original_word = words[Math.floor(Math.random() * words.length)].toUpperCase();
+    console.log(original_word);
 }
 generateNewWord();
 
@@ -88,32 +121,30 @@ function checkResult() {
     for (let i = 0; i < 5; i++) {
         if (arrayOriginalWord[i] === arrayCurrentWord[i].innerHTML) {
             setColor(arrayCurrentWord[i], 'right_letter');
+            setColorButton(arrayOriginalWord[i], 'right_letter');
             arrayOriginalWord[i] = '';
         }
     }
 
     if (current_word === original_word) {
-        current_level += 1;
-        current_word = '';
-        textLvl.innerText = current_level; 
-        generateNewWord();
-
-        console.log('win');
-        cleanBoard();
+        document.querySelector('.wordle__cell--active').classList.remove('wordle__cell--active');
+        showWinWindow();
         return;
     }
 
     for (let i = 0; i < 5; i++) {
         for (let j = 0; j < 5; j++) {
             if (arrayCurrentWord[i].innerHTML === arrayOriginalWord[j] && !arrayCurrentWord[i].classList.contains('right_letter')) {
-                setColor(arrayCurrentWord[i], 'wrong_position'); 
+                setColor(arrayCurrentWord[i], 'wrong_position');
+                setColorButton(arrayCurrentWord[i].innerHTML, 'wrong_position'); 
                 arrayOriginalWord[j] = '';
             }
         }
     }
     for (let i = 0; i < 5; i++) {
         if (!arrayCurrentWord[i].classList.contains('right_letter') && !arrayCurrentWord[i].classList.contains('wrong_position')) {
-            setColor(arrayCurrentWord[i], 'wrong_letter'); 
+            setColor(arrayCurrentWord[i], 'wrong_letter');
+            setColorButton(arrayCurrentWord[i].innerHTML, 'wrong_letter');  
         }
     }
     current_word = '';
@@ -121,7 +152,7 @@ function checkResult() {
         if (cells[i].classList.contains('wordle__cell--active')) {
             if (i === 29) {
                 cells[i].classList.remove('wordle__cell--active');
-                console.log('lose');
+                showLoseWindow();
                 return;
             }
             cells[i].classList.remove('wordle__cell--active');
@@ -145,10 +176,13 @@ function setColor(element, key) {
 }
 
 function cleanBoard(){
-    const cells = document.querySelectorAll('.wordle__cell');
-
-    document.querySelector('.wordle__cell--active').classList.remove('wordle__cell--active');
+    let focus =  document.querySelector('.wordle__cell--active');
+    if (focus !== null) {
+        focus.classList.remove('wordle__cell--active');
+    }
     document.querySelector('.wordle__cell').classList.add('wordle__cell--active');
+
+    const cells = document.querySelectorAll('.wordle__cell');
     cells.forEach(cell => {
 
         cell.classList.remove('right_letter');
@@ -156,7 +190,53 @@ function cleanBoard(){
         cell.classList.remove('wrong_letter');
         cell.innerHTML = '';
     })
+
+    const buttons = document.querySelectorAll('.wordle__key');
+    buttons.forEach(button => {
+        button.classList.remove('right_letter');
+        button.classList.remove('wrong_position');
+        button.classList.remove('wrong_letter'); 
+    })
+
 }
 
-// 1. Добавить окна выигрыша и поражения
-// 2. Адаптация для телефона
+function setColorButton(letter, key) {
+    const buttons = document.querySelectorAll('.wordle__key');
+    buttons.forEach(button => {
+        if (button.innerText === letter && button.classList != 'right_letter') {
+            if  (key === 'right_letter') {
+                button.classList.remove('wrong_position');
+                button.classList.add(key);
+            } 
+            if (key === 'wrong_position') {
+                button.classList.add(key);
+            }
+            if (key === 'wrong_letter') {
+                button.classList.add(key);
+            }
+        }
+    })
+}
+
+function showLoseWindow() {
+    document.querySelector(".wordle__result--val").innerHTML = original_word;
+  
+    document
+      .querySelector(".wordle__lose-form")
+      .style.setProperty("display", "flex");
+  }
+  
+function showWinWindow() {
+    document
+      .querySelector(".wordle__win-form")
+      .style.setProperty("display", "flex");
+
+      let i = 0;
+      document.querySelectorAll('.wordle__letter').forEach(letter => {
+        letter.innerHTML = original_word[i];
+        console.log(original_word)
+        i += 1;
+      })
+}
+
+// Adaptive for mobile

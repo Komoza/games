@@ -99,6 +99,33 @@
                 <button class="wordle__key wordle__check-word">Проверить слово</button>
             </div>
         </div>
+
+        <div class="wordle__lose-form">
+            <p class="wordle__lose-message">You lose</p>
+            <div class="wordle__result">
+                <p>Загаданное слово:</p>
+                <p class="wordle__result--val"></p>
+            </div>
+            <div class="wordle__lose-buttons">
+                <button class="wordle__main-menu">Main menu</button>
+                <button class="wordle__try-again">Try again</button>
+            </div>
+        </div>
+
+        <div class="wordle__win-form">
+            <p class="wordle__win-message">You win</p>
+            <div class="wordle__origin-word">
+                <div class="wordle__letter right_letter"></div>
+                <div class="wordle__letter right_letter"></div>
+                <div class="wordle__letter right_letter"></div>
+                <div class="wordle__letter right_letter"></div>
+                <div class="wordle__letter right_letter"></div>
+            </div>
+            <div class="wordle__win-buttons">
+                <button class="wordle__main-menu-win">Main menu</button>
+                <button class="wordle__continue">Continue</button>
+            </div>
+        </div>
     </div>
         <script src="../script/wordle/wordle.js" type="module"></script>
         <script src="../script/wordle/words.js" type="module"></script>

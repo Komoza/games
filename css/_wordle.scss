@@ -18,7 +18,7 @@
         grid-template-columns: repeat(5, 70px);
         grid-template-rows: repeat(6, 80px);
         gap: 3px;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
     }
     &__cell {
         font-size: 48px;
@@ -86,5 +86,80 @@
     }
     &__clear {
         width: 65px !important;
+    }
+    &__lose-form, &__win-form{
+        z-index: 20;
+        display: flex;
+        width: 60vmin;
+        height: 60vmin;
+        position: absolute;
+        background-color: rgba(42, 40, 40);
+        border: 1px solid #585656;
+        border-radius: 1vmin;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4vmin 2vmin 7vmin;
+        animation: show .5s;
+        display: none;
+    }
+    &__lose-message {
+        color: #fb4a4a;
+        font-size: 6vmin;
+    }
+    &__win-message {
+        color: rgb(24, 255, 31);
+        font-size: 6vmin;
+    }
+    &__result {
+        display: flex;
+        color: #fff;
+        font-size: 4vmin;
+        gap: 1vmin;
+    }
+    &__lose-buttons, &__win-buttons {
+        display: flex;
+        gap: 5vmin;
+    }
+    &__main-menu, &__main-menu-win{
+        font-size: 2.5vmin;
+        width: 20vmin;
+        height: 7vmin;
+        border-radius: 1vmin;
+        border: none;
+        transition: all .3s;
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+    }
+    &__try-again, &__continue {
+        font-size: 2.5vmin;
+        width: 20vmin;
+        height: 7vmin;
+        border-radius: 1vmin;
+        color: #fff;
+        background-color: rgb(3, 166, 8);
+        border: none;
+        transition: all .3s;
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+    }
+
+    &__origin-word {
+        display: flex;
+        gap: 8px;
+    }
+    &__letter {
+        width: 70px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 48px;
+        color: white;
+        border-radius: 5px;
     }
 }
