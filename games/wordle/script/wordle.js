@@ -6,11 +6,11 @@ let textLvl = document.querySelector('.wordle__level--val')
 
 
 document.querySelector(".wordle__main-menu").onclick = (event) => {
-  document.location.href = "../../../index.html";
+  document.location.href = "../../index.html";
 };
 
 document.querySelector(".wordle__main-menu-win").onclick = (event) => {
-    document.location.href = "../../../index.html";
+    document.location.href = "../../index.html";
   };
 
 document.querySelector(".wordle__try-again").onclick = (event) => {
