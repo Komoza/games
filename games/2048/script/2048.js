@@ -10,7 +10,7 @@ for (let i = 0; i < 4; i++) {
 
 const mainMenu = document.querySelector(".game2048__main-menu");
 mainMenu.onclick = (event) => {
-  document.location.href = "../index.html";
+  document.location.href = "../../../index.html";
 };
 const tryAgain = document.querySelector(".game2048__try-again");
 tryAgain.onclick = (event) => {

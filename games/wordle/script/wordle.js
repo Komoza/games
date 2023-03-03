@@ -6,11 +6,11 @@ let textLvl = document.querySelector('.wordle__level--val')
 
 
 document.querySelector(".wordle__main-menu").onclick = (event) => {
-  document.location.href = "../index.html";
+  document.location.href = "../../../index.html";
 };
 
 document.querySelector(".wordle__main-menu-win").onclick = (event) => {
-    document.location.href = "../index.html";
+    document.location.href = "../../../index.html";
   };
 
 document.querySelector(".wordle__try-again").onclick = (event) => {
@@ -47,7 +47,7 @@ document.querySelector(".wordle__restart").onclick = (event) => {
 
 function generateNewWord() {
     original_word = words[Math.floor(Math.random() * words.length)].toUpperCase();
-    console.log(original_word);
+    // console.log(original_word);
 }
 generateNewWord();
 
@@ -239,4 +239,18 @@ function showWinWindow() {
       })
 }
 
-// Adaptive for mobile
+
+document.querySelectorAll(".wordle__key").forEach(button => {
+    button.onclick = (event) => {
+        if (button.innerText === 'ПРОВЕРИТЬ СЛОВО' && current_word.length === 5) {
+            checkResult();
+        } else if (button.innerText === '←' ) {
+            drawLetter('prev');
+        } else {
+            drawLetter('next', button.innerText);
+        }
+    }
+})
+
+
+// 1. Adaptive for mobile
