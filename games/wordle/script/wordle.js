@@ -3,6 +3,7 @@ let original_word = '';
 let current_word = '';
 let current_level = 1;
 let textLvl = document.querySelector('.wordle__level--val')
+let modal;
 
 
 document.querySelector(".wordle__main-menu").onclick = (event) => {
@@ -52,17 +53,21 @@ function generateNewWord() {
 generateNewWord();
 
 document.addEventListener('keydown', event => {
-    if (event.code == 'Backspace') {
-        drawLetter('prev');
-        return;
-    }
-    if (event.key.search(/[А-яЁё]/) != -1) {
-        drawLetter('next', event.key.toUpperCase());
-        return;
-    }
-    if (event.code == 'Enter' && current_word.length === 5) {
-        checkResult();
-        return;
+    if (!modal) {
+        if (event.code == 'Backspace') {
+            drawLetter('prev');
+            return;
+        }
+        if (event.key.search(/[А-яЁё]/) != -1) {
+            drawLetter('next', event.key.toUpperCase());
+            return;
+        }
+        if (event.code == 'Enter' && current_word.length === 5) {
+            checkResult();
+            return;
+        }
+    } else if (event.code == 'Enter') {
+        hideWrongWord();
     }
   });
 
@@ -101,7 +106,7 @@ function drawLetter(course, letter) {
 
 function checkResult() {
     if (words.includes(current_word.toUpperCase()) == false) {
-        alert('Такого слова не существует');
+        wrongWord();
         return;
     }
 
@@ -252,5 +257,16 @@ document.querySelectorAll(".wordle__key").forEach(button => {
     }
 })
 
-
+function wrongWord() {
+    document
+    .querySelector(".wordle__wrong-word")
+    .style.setProperty("display", "flex");
+    modal = true 
+}
+function hideWrongWord() {
+    document
+    .querySelector(".wordle__wrong-word")
+    .style.setProperty("display", "none");
+    modal = false; 
+}
 // 1. Adaptive for mobile

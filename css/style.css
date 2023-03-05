@@ -423,4 +423,30 @@ body {
   font-size: 48px;
   color: white;
   border-radius: 5px;
+}
+.wordle__wrong-word {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  width: 60vmin;
+  height: 20vmin;
+  position: absolute;
+  background-color: rgb(42, 40, 40);
+  border: 1px solid #585656;
+  border-radius: 1vmin;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: show 0.5s;
+  color: red;
+  font-size: 4vmin;
+  gap: 1vmin;
+  display: none;
+}
+.wordle__wrong-word-desc {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: white;
+  font-size: 16px;
 }/*# sourceMappingURL=style.css.map */
