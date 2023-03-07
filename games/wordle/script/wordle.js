@@ -251,7 +251,7 @@ document.querySelectorAll(".wordle__key").forEach(button => {
             checkResult();
         } else if (button.innerText === '←' ) {
             drawLetter('prev');
-        } else {
+        } else if (button.innerText !== 'ПРОВЕРИТЬ СЛОВО') {
             drawLetter('next', button.innerText);
         }
     }
